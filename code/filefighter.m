@@ -1,6 +1,10 @@
+% variables
+startGame = 0;
+
+
 % BOOT UP
 clc
-fprintf('Before starting this, please make sure you have the MATLAB Compiler installed. \n')
+fprintf('Before starting this, please make sure you have MATLAB Compiler and getKey installed. \n')
 pause(3)
 currentAddons = matlab.addons.installedAddons;
 disp(currentAddons)
@@ -30,6 +34,33 @@ end
 if continueBoot == 1
     clc
     pause(rand())
-    fprintf('\n \n \n \n <strong>File Fighter</strong> \n Start \n Exit \n \n')
+fprintf('\n \n \n \n <strong>File Fighter</strong> \n 1. Start \n 2. Exit \n \n')
+startPrompt = 'Please type 1 or 2 to continue: ';
+userInput = input(startPrompt, 's'); % 's' specifies that the input should be treated as a string
+
+% Check the user input and perform actions based on the input
+if strcmp(userInput, '1')
+    clc
+    disp('Starting File Fighter...')
+    pause(.1)
+    startGame = 1;
+    clc
+elseif strcmp(userInput, '2')
+    disp('Exiting File Fighter...')
+    clc
+    return
+else
+    clc
+    disp('Invalid input. Please type 1 or 2 to continue.')
+    pause(1);
+
+    % Add code to handle invalid input
 end
+end
+
+
+%START DA GAME
+
+
+
 
