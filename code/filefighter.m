@@ -60,7 +60,9 @@ end
 
 
 %START DA GAME
-
+if startGame == 1
+fprintf('Welcome to file fighter... \nBefore we start, we should mention that all claims in this game are purely for the game and will not actually occur \nDo you understand?\n')
+end
 
 
 
