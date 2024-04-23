@@ -140,6 +140,7 @@ map(540:740,360:560) = 2;
 map(540:740,660:860) = 2;
 map(540:740,960:1160) = 2;
 map(540:740,1260:1460) = 2;
+map(560:720,1580:1740) = 1;
 
 %Row 4
 map(790:990,360:560) = 2;
@@ -151,7 +152,13 @@ imagesc(map)
 
 pause(2)
 clc
-fprintf('\n<strong>File Fighter</strong>\n\nWelcome to file fighter...')
+fprintf('\n<strong>File Fighter</strong>\n\nWelcome to File Fighter... \nAs a side comment, please press enter after every cursor click.\n\n\n\n<strong><Narrator></strong> Please, grab a blank card on the right.\n\n')
+
+[x,y,button] = ginput(1);
+
+if y >= 560 && y <= 720 && x >= 1580 && x <= 1740 && button == 1
+    fprintf('bleh\n')
+end
 
 
 end
