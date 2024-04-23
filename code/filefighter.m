@@ -1,6 +1,16 @@
 % variables
 startGame = 0;
 map = 0;
+map = zeros(1080,1920);
+name = 0;
+scale = 0;
+background = [113, 105, 103] / 255;
+healthBarOutline = [194, 177, 173] / 255;
+healthBar = [234, 84, 48] / 255;
+scaleColor = [104, 95, 93] / 255;
+customColorMap = [background; healthBarOutline; scaleColor; healthBar];
+colormap(customColorMap);
+map = zeros(1080,1920);
 
 % BOOT UP
 clc
@@ -61,13 +71,56 @@ end
 
 %START DA GAME
 if startGame == 1
-fprintf('Welcome to file fighter...\n \nWarning\nBefore we start, we should mention that all claims in this game are purely for the game and will not actually occur \nDo you understand?\n')
+fprintf('Welcome to file fighter...\n \n<strong>Warning</strong>\nAll claims in this game are purely for the game and will not actually occur.\n\n\n\n')
+pause(4)
+clc
+scale = 5;
+% Prompt the user to enter their name
+name = input('Please enter your name: ', 's');
+clc
+fprintf('\n\n\n\n Welcome <strong>%s...</strong> \n\n',name)
 pause(2)
-map = zeros(1920,1080);
-image(map)
+clc
+map = zeros(1080,1920);
+imagesc(map)
+fprintf('Please dock the image to your matlab.\n')
+pause(3)
+map(50:80,100:550) = 1;
+imagesc(map)
+
+%health 1
+map(60:70,110:140) = 2;
+imagesc(map)
+pause(0.1)
+% health 2
+map(60:70,160:190) = 2;
+imagesc(map)
+% health 3
+map(60:70,210:240) = 2;
+imagesc(map)
+% health 4
+map(60:70,260:290) = 2;
+imagesc(map)
+% health 5
+map(60:70,310:340) = 3;
+imagesc(map)
+% health 6
+map(60:70,360:390) = 2;
+imagesc(map)
+% health 7
+map(60:70,410:440) = 2;
+imagesc(map)
+% health 8
+map(60:70,460:490) = 2;
+imagesc(map)
+% health 9
+map(60:70,510:540) = 2;
+imagesc(map)
+
+
 end
 
 
-jgysdfigkwueghoweriutywers;ogiyserpt9
+
 
 
