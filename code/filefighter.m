@@ -85,37 +85,73 @@ map = zeros(1080,1920);
 imagesc(map)
 fprintf('Please dock the image to your matlab.\n')
 pause(3)
-map(50:80,100:550) = 1;
+
 imagesc(map)
 
+
+% INITIALIZE BOARD
+map(315:685,30:80) = 1;
 %health 1
-map(60:70,110:140) = 2;
+map(325:355,40:70) = 2;
 imagesc(map)
 pause(0.1)
 % health 2
-map(60:70,160:190) = 2;
+map(365:395,40:70) = 2;
 imagesc(map)
 % health 3
-map(60:70,210:240) = 2;
+map(405:435,40:70) = 2;
 imagesc(map)
 % health 4
-map(60:70,260:290) = 2;
+map(445:475,40:70) = 2;
 imagesc(map)
 % health 5
-map(60:70,310:340) = 3;
+map(485:515,40:70) = 3;
 imagesc(map)
 % health 6
-map(60:70,360:390) = 2;
+map(525:555,40:70) = 2;
 imagesc(map)
 % health 7
-map(60:70,410:440) = 2;
+map(565:595,40:70) = 2;
 imagesc(map)
 % health 8
-map(60:70,460:490) = 2;
+map(605:635,40:70) = 2;
 imagesc(map)
 % health 9
-map(60:70,510:540) = 2;
+map(645:675,40:70) = 2;
 imagesc(map)
+
+
+% BOARD
+
+%Row 1
+map(40:240,360:560) = 2;
+map(40:240,660:860) = 2;
+map(40:240,960:1160) = 2;
+map(40:240,1260:1460) = 2;
+
+%Row 2
+map(290:490,360:560) = 2;
+map(290:490,660:860) = 2;
+map(290:490,960:1160) = 2;
+map(290:490,1260:1460) = 2;
+
+%Row 3
+map(540:740,360:560) = 2;
+map(540:740,660:860) = 2;
+map(540:740,960:1160) = 2;
+map(540:740,1260:1460) = 2;
+
+%Row 4
+map(790:990,360:560) = 2;
+map(790:990,660:860) = 2;
+map(790:990,960:1160) = 2;
+map(790:990,1260:1460) = 2;
+
+imagesc(map)
+
+pause(2)
+clc
+fprintf('\n<strong>File Fighter</strong>\n\nWelcome to file fighter...')
 
 
 end
