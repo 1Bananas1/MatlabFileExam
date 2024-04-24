@@ -11,6 +11,15 @@ scaleColor = [104, 95, 93] / 255;
 customColorMap = [background; healthBarOutline; scaleColor; healthBar];
 colormap(customColorMap);
 map = zeros(1080,1920);
+imagesc(map)
+gameState = 0;
+tutorial =1;
+endGame = 0;
+currentKeyPress = [];
+selectionMode = 1;
+% 1 for cursor
+% 0 for keyboard
+
 
 % BOOT UP
 clc
@@ -148,20 +157,111 @@ map(790:990,660:860) = 2;
 map(790:990,960:1160) = 2;
 map(790:990,1260:1460) = 2;
 
-imagesc(map)
+%icons
+map(50:100,1820:1870) = 3; %right
+map(50:100,1720:1770) = 3; %left
 
+imagesc(map)
+gameState = map;
 pause(2)
 clc
 fprintf('\n<strong>File Fighter</strong>\n\nWelcome to File Fighter... \nAs a side comment, please press enter after every cursor click.\n\n\n\n<strong><Narrator></strong> Please, grab a blank card on the right.\n\n')
-
 [x,y,button] = ginput(1);
 
-if y >= 560 && y <= 720 && x >= 1580 && x <= 1740 && button == 1
-    fprintf('bleh\n')
+while tutorial == 1
+    if y >= 560 & y <= 720 & x >= 1580 & x <= 1740 & button == 1
+        clc
+        fprintf('\nPress w to check you cards\n')
+        tutorial = 0;
+        gameState = map;
+        button=[];
+        x=[];
+        y=[];
+       
+    end
+end
+while selectionMode == 1
+    [x,y,button] = ginput(1);
+        if y >= 560 & y <= 720 & x >= 1580 & x <= 1740 & button == 1
+            clc
+            fprintf('\nPress w to check you cards\n')
+            tutorial = 0;
+            gameState = map;
+            button=[];
+            x=[];
+            y=[];
+        end
+        if y >= 50 & y <= 100 & x >= 1820 & x <= 1870 & button == 1
+            clc
+            fprintf('\nKeyboard mode activated\n')
+            selectionMode = 0; 
+        end
 end
 
 
+while selectionMode == 0
+    selectionMode
+    currentKeyPress = getkey('non-ascii');
+        if ismember('w',currentKeyPress) 
+            gameState = map;
+            map(700:1080,710:1110)=1;
+            tutorial = tutorial-1;
+            imagesc(map)
+            endGame = 0;
+            currentKeyPress=[];
+        end
+        if ismember('s',currentKeyPress) 
+            map=gameState;
+            tutorial = tutorial-1;
+            imagesc(map)
+            endGame = 0;
+            currentKeyPress=[];
+        end
+        if ismember('s',currentKeyPress) 
+            map=gameState;
+            tutorial = tutorial-1;
+            imagesc(map)
+            endGame = 0;
+            currentKeyPress=[];
+        end
+        if ismember('tab',currentKeyPress)
+            fprintf('Cursor mode activated\n')
+            currentKeyPress=[];
+            selectionMode=0;
+            selectionMode
+        end
+        if ismember('esc',currentKeyPress)
+            currentKeyPress=[];
+            selectionMode=0;
+            SelectionMode
+            return
+        end
+        selectionMode
+        
 end
+
+
+
+
+
+if y >= 50 & y <= 100 & x >= 1820 & x <= 1870 & button == 1
+        clc
+        fprintf('\nCursor mode activated\n')
+        selectionMode = 1;
+       
+end
+
+
+
+
+
+
+
+
+end
+
+
+
 
 
 
