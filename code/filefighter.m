@@ -18,15 +18,32 @@ gameState = 0;
 tutorial =1;
 endGame = 0;
 currentKeyPress = [];
-selectionMode = 1;
+selectionMode = 1;% 1 for cursor  0 for keyboard
 scale = 0.5;
-% 1 for cursor
-% 0 for keyboard
 showInventory=false;
 turn=0;
 cardNumber = 0;
 cardSelected = 0;
-currentCardSelected = [];
+mouseClicked = 0;
+currentCardCount = 0;
+gameTurnStatus = 0;
+newCardType = 0;
+%
+% scale = 0.1;
+% OffsetX = 400;
+% OffsetY = 200;
+% initialYStart = 1+ OffsetY;
+% initialYEnd = (scale * 1080) + initialYStart;
+% initialXStart = 1+ OffsetX;
+% initialXEnd = (scale * 1920) + initialXStart;
+% posCardYOffset = 0;
+% scaleLength = 1920 * scale;
+% scaleWidth = 1080 * scale;
+% map(initialYStart:initialYEnd,initialXStart:initialXEnd) = 2;
+% imagesc(map)
+
+
+
 
 % BOOT UP
 clc
@@ -165,7 +182,7 @@ map(790:990,960:1160) = 2;
 map(790:990,1260:1460) = 2;
 
 %icons
-map(50:100,1720:1770) = 6; %left
+%map(50:100,1720:1770) = 6; %left
 map(50:100,1820:1870) = 6; %right
 map(55:95,1725:1730) = 5;
 
@@ -179,7 +196,7 @@ fprintf('\n<strong>File Fighter</strong>\n\nWelcome to File Fighter... \n\n\n<st
 
 cursorModeActive = false;
 clc
-if y >= 560 & y <= 720 & x >= 1580 & x <= 1740 & button == 1
+if y >= 560 & y <= 720 & x >= 1580 & x <= 1740 & button == 1 & gameTurnStatus == 0
         clc
         fprintf('\n<strong>File Fighter</strong>\n\nPress the icon in the top right of your screen to enter keyboard mode\nPress tab to exit keyboard mode.\n')
         fprintf('\nA blank card has been added to your inventory\n')
@@ -187,18 +204,24 @@ if y >= 560 & y <= 720 & x >= 1580 & x <= 1740 & button == 1
         button = [];
         x = [];
         y = [];
+        currentCardCount = currentCardCount +1;
+        gameTurnStatus = 1;
+        newCardType = 1;
 end
 
 
 while true
-    while selectionMode == 1
+    while selectionMode == 1 
         [x, y, button] = ginput(1);
-        if y >= 560 & y <= 720 & x >= 1580 & x <= 1740 & button == 1
+        if y >= 560 & y <= 720 & x >= 1580 & x <= 1740 & button == 1 %pick up card
             clc
             gameState = map;
             button = [];
             x = [];
             y = [];
+            newCardType = 1;
+            currentCardCount = currentCardCount +1;
+            gameTurnStatus = 1;
         end
         if y >= 50 & y <= 100 & x >= 1820 & x <= 1870 & button == 1
             clc
@@ -210,6 +233,9 @@ while true
             clc
             fprintf('Exiting Selection Mode')
             false
+            button = [];
+            x = [];
+            y = [];
         end
         if showInventory == true
             if y>=690 & y<=1070 & x>=700 & x<=1120 & button==1
@@ -221,12 +247,32 @@ while true
             end
         end
         if cardSelected == 1
-            if y >= 770 & y <= 990 & x >= 360 & x <= 560 & button == 1
+            if y >= 770 & y <= 990 & x >= 360 & x <= 560 & button == 1 & gameTurnStatus == 1 & currentCardCount == 1 & newCardType == 1
                 currentCardSelected = map(690:1070,700:1120);
+                region_to_shrink = map(690:1080, 700:1120);
+                target_size = size(region_to_shrink) ./ 2;
+                shrunk_region = imresize(region_to_shrink, target_size);
+                shrunk_region_resized = imresize(shrunk_region, [200, 200]);
+
                 map=gameState;
+                map(790:989, 360:559) = shrunk_region_resized;
+
+
+                imagesc(map)
+                gameTurnStatus = 2;
+                fprintf('\nCard Placed\n')
+                cardSelected = 0;
+                button = [];
+                x = [];
+                y = [];
+                gameTurnStatus = 2;
+                
 
             end
         end
+        [x, y, button] = ginput(1);
+
+
 
     while selectionMode == 0
         if ~cursorModeActive
@@ -241,6 +287,7 @@ while true
             end
             map(690:1070, 700:1120) = 5;    % card outline
             map(700:1080, 710:1110) = 1;    %make card
+            map(690:700, 700:710) = 4;      % identifier
             map(710:760,720:730) = 5;       % make 0
             map(710:715,720:760)  = 5;
             map(755:760,720:760)  = 5;
@@ -278,10 +325,12 @@ while true
             cursorModeActive = false;
             break;
         end
+    while gameTurnStatus == 2
+        fprintf('End of Turn')
+        gameTurnStatus = 0;
     end
-end
-
-
+    end
+    end
 
 
 end
