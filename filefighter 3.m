@@ -1,9 +1,9 @@
 clc
 squirrelCard = struct('ID', 1, 'name', 'Squirrel', 'health', 1, 'attack', 0, 'cost', 0);
-stoatCard = struct('ID', 2, 'name', 'Stout', 'health', 3, 'attack', 1, 'cost', 1);
-wolfCard = struct('ID', 3, 'name', 'Wolf', 'health', 2, 'attack', 3, 'cost', 2);
-grizzlyCard = struct('ID', 4, 'name', 'Grizzly', 'health', 6, 'attack', 4, 'cost', 3);
-urayuliCard = struct('ID', 5, 'name', 'Urayuli', 'health', 7, 'attack', 7, 'cost', 7);
+stoatCard = struct('ID', 2, 'name', 'Stout', 'health', 1, 'attack', 1, 'cost', 1);
+wolfCard = struct('ID', 3, 'name', 'Wolf', 'health', 1, 'attack', 3, 'cost', 2);
+grizzlyCard = struct('ID', 4, 'name', 'Grizzly', 'health', 1, 'attack', 4, 'cost', 3);
+urayuliCard = struct('ID', 5, 'name', 'Urayuli', 'health', 1, 'attack', 7, 'cost', 7);
 riversnapperCard = struct('ID', 6, 'name', 'River Stoat', 'health',6,'attack',1,'cost',2);
 cardArray={squirrelCard,stoatCard,wolfCard,grizzlyCard,urayuliCard,riversnapperCard};
 scale=6;
@@ -22,6 +22,10 @@ blood = 0;
 drawnCard.Cost = [];
 map=zeros(3,4);
 j = 0; % dummy variable for seeing and identifying ID on affected cards
+
+fprintf('Welcome to Inscryption...\n')
+pause(0.5)
+fprintf('There are six cards in this game\n')
 
 for i = 1:numCardsToDraw
     randomCardIndex = randi(8); % Generate a random index from 1 to 4
@@ -49,7 +53,7 @@ end
 
 
 % Add a squirrel card to the player's inventory
-playerInventory.cards = [playerInventory.cards, squirrelCard, squirrelCard];
+playerInventory.cards = [playerInventory.cards, squirrelCard];
 
 
 randomComputerCardIndex = randi(8); % Generate a random index from 1 to 4
@@ -71,7 +75,7 @@ elseif randomComputerCardIndex == 7
 else
     randomComputerCard = grizzlyCard;
 end
-map(1,randi(4)) = (randomComputerCard.ID)
+map(1,randi(4)) = (randomComputerCard.ID);
 
 
 
@@ -162,8 +166,10 @@ while ~gameOver
                     currentCardMaster = cardArray{[currentCard]};
                     scale = scale + currentCardMaster.attack;
                 else
+                    currentCard = map(3,i);
+                    currentCardMaster = cardArray{[currentCard]};
                     currentCardDefending = map(2,i);
-                    currentCardDefendingMaster = cardArray{[currentCardDefending]}
+                    currentCardDefendingMaster = cardArray{[currentCardDefending]};
                     currentCardDefendingMaster.health = currentCardDefendingMaster.health - currentCardMaster.attack;
                     if currentCardDefendingMaster.health <= 0
                         map(2,i) = 0;
@@ -176,20 +182,24 @@ while ~gameOver
                 map(2,i) = map(1,i);
                 map(1,i) = 0;
             end
+        end
+        for i = 1:4
             if map(3,i) ==0 % check to see if bottom row empty
                 if map(2,i) ~=0 % if there is, is there a card above it to be attacked by
                     currentCard = map(2,i);
                     currentCardMaster = cardArray{[currentCard]};
                     scale = scale - currentCardMaster.attack;
                 end
-            else
-                currentCard = map(2,i);
-                currentCardMaster = cardArray{[currentCard]};
-                currentCardDefending = map(3,i);
-                currentCardDefendingMaster = cardArray{[currentCardDefending]};
-                currentCardDefendingMaster.health = currentCardDefendingMaster.health - currentCardMaster.attack;
-                if currentCardDefendingMaster.health <= 0
-                    map(3,i)=0;
+            elseif map(3,i) ~= 0
+                if map(2,i) ~= 0
+                    currentCard = map(2,i);
+                    currentCardMaster = cardArray{[currentCard]};
+                    currentCardDefending = map(3,i);
+                    currentCardDefendingMaster = cardArray{[currentCardDefending]};
+                    currentCardDefendingMaster.health = currentCardDefendingMaster.health - currentCardMaster.attack;
+                    if currentCardDefendingMaster.health <= 0
+                        map(3,i)=0;
+                    end
                 end
             end
             currentCard = [];
@@ -198,6 +208,47 @@ while ~gameOver
             currentCardDefending = [];
             currentCardDefendingMaster = [];
         end
+
+        randomCardIndex = randi(8); % Generate a random index from 1 to 4
+
+        if randomCardIndex == 1
+            randomCard = stoatCard;
+        elseif randomCardIndex == 2
+            randomCard = wolfCard;
+        elseif randomCardIndex == 3
+            randomCard = wolfCard;
+        elseif randomCardIndex == 4
+            randomCard = riversnapperCard;
+        elseif randomCardIndex == 5
+            randomCard = riversnapperCard;
+        elseif randomCardIndex == 6
+            randomCard = stoatCard;
+        elseif randomCardIndex == 7
+            randomCard = urayuliCard;
+        else
+            randomCard = grizzlyCard;
+        end
+        playerInventory.cards = [playerInventory.cards, randomCard,squirrelCard];
+        randomComputerCardIndex = randi(8); % Generate a random index from 1 to 4
+
+        if randomComputerCardIndex == 1
+            randomComputerCard = stoatCard;
+        elseif randomComputerCardIndex == 2
+            randomComputerCard = wolfCard;
+        elseif randomComputerCardIndex == 3
+            randomComputerCard = wolfCard;
+        elseif randomComputerCardIndex == 4
+            randomComputerCard = riversnapperCard;
+        elseif randomComputerCardIndex == 5
+            randomComputerCard = riversnapperCard;
+        elseif randomComputerCardIndex == 6
+            randomComputerCard = stoatCard;
+        elseif randomComputerCardIndex == 7
+            randomComputerCard = urayuliCard;
+        else
+            randomComputerCard = grizzlyCard;
+        end
+        map(1,randi(4)) = (randomComputerCard.ID)
         fprintf('Scale: %.f \n',scale)
         if scale >= 11
             fprintf('\nYou win\n')
@@ -206,9 +257,9 @@ while ~gameOver
             fprintf('\nYou lost\n')
             gameOver = true;
         else
-        pause(1)
-        clc
-        playerTurn=true;
+            pause(1)
+            clc
+            playerTurn=true;
         end
 
 
