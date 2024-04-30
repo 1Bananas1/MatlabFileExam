@@ -192,7 +192,11 @@ while ~gameOver
                     map(3,i)=0;
                 end
             end
-
+            currentCard = [];
+            currentCardID = [];
+            currentCardMaster = [];
+            currentCardDefending = [];
+            currentCardDefendingMaster = [];
         end
         fprintf('Scale: %.f \n',scale)
         if scale >= 11
