@@ -325,13 +325,14 @@ while true
             cursorModeActive = false;
             break;
         end
+
+
+    end
+    end
     while gameTurnStatus == 2
         fprintf('End of Turn')
         gameTurnStatus = 0;
     end
-    end
-    end
-
 
 end
 
