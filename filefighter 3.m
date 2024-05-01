@@ -64,7 +64,7 @@ pause(3)
 clc
 
 
-
+% Generate New Inventory w/ Random Cards
 for i = 1:numCardsToDraw
     randomCardIndex = randi(8); % Generate a random index from 1 to 4
 
@@ -93,11 +93,8 @@ end
 % Add a squirrel card to the player's inventory
 playerInventory.cards = [playerInventory.cards, squirrelCard];
 
-
-randomComputerCardIndex = randi(8); % Generate a random index from 1 to 4
-
-randomComputerCardIndex = randi(100); % Generate a random index from 1 to 4
-
+% Random computer side card
+randomComputerCardIndex = randi(100); % Generate a random index from 1 to 10
 if randomComputerCardIndex < 40 % 0-40 : 40% chance
     randomComputerCard = stoatCard;
 elseif randomComputerCardIndex >= 40 && randomComputerCardIndex < 65 %  40-65: 25% chance
@@ -109,11 +106,11 @@ elseif randomComputerCardIndex >=95  % 5% chance
 elseif randomComputerCardIndex >= 85 && randomComputerCardIndex < 95 % 10% chance
     randomComputerCard = grizzlyCard;
 end
-map(1,randi(4)) = (randomComputerCard.ID);
+map(1,randi(4)) = (randomComputerCard.ID); % add card to map in random column
 
 
 
-
+% game loop BEGIN
 gameOver = false;
 playerTurn = true;
 while ~gameOver
@@ -262,8 +259,8 @@ while ~gameOver
             currentCardDefendingMaster = [];
         end
 
-        randomCardIndex = randi(10); % Generate a random index from 1 to 4
-
+        randomCardIndex = randi(10); % Generate a random index from 1 to 10
+        % Generate random Player Card
         if randomCardIndex == 1
             randomCard = stoatCard;
         elseif randomCardIndex == 2
@@ -286,8 +283,10 @@ while ~gameOver
             randomCard = squirrelCard;
         end
         playerInventory.cards = [playerInventory.cards, randomCard,squirrelCard];
-        randomComputerCardIndex = randi(100); % Generate a random index from 1 to 100
+        % add to player inventory
 
+        % random computer card
+        randomComputerCardIndex = randi(100); % Generate a random index from 1 to 100
         if randomComputerCardIndex < 40 % 0-40 : 40% chance
             randomComputerCard = stoatCard;
         elseif randomComputerCardIndex >= 40 && randomComputerCardIndex < 65 %  40-65: 25% chance
@@ -301,6 +300,7 @@ while ~gameOver
         end
         map(1,randi(4)) = (randomComputerCard.ID);
         fprintf('Scale: %.f \n',scale)
+        % check to see if game has ended
         if scale >= 11
             fprintf('\nYou win\n')
             gameOver = true;
@@ -311,7 +311,7 @@ while ~gameOver
         else
             pause(1)
             clc
-            playerTurn=true;
+            playerTurn=true; % repeat loop
         end
     end
 end
