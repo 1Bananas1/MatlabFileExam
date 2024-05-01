@@ -96,21 +96,17 @@ playerInventory.cards = [playerInventory.cards, squirrelCard];
 
 randomComputerCardIndex = randi(8); % Generate a random index from 1 to 4
 
-if randomComputerCardIndex == 1
+randomComputerCardIndex = randi(100); % Generate a random index from 1 to 4
+
+if randomComputerCardIndex < 40 % 0-40 : 40% chance
     randomComputerCard = stoatCard;
-elseif randomComputerCardIndex == 2
+elseif randomComputerCardIndex >= 40 && randomComputerCardIndex < 65 %  40-65: 25% chance
     randomComputerCard = wolfCard;
-elseif randomComputerCardIndex == 3
-    randomComputerCard = wolfCard;
-elseif randomComputerCardIndex == 4
+elseif randomComputerCardIndex >= 65 && randomComputerCardIndex < 85 % 65-85: 20% chance
     randomComputerCard = riversnapperCard;
-elseif randomComputerCardIndex == 5
-    randomComputerCard = riversnapperCard;
-elseif randomComputerCardIndex == 6
-    randomComputerCard = stoatCard;
-elseif randomComputerCardIndex == 7
+elseif randomComputerCardIndex >=95  % 5% chance
     randomComputerCard = urayuliCard;
-else
+elseif randomComputerCardIndex >= 85 && randomComputerCardIndex < 95 % 10% chance
     randomComputerCard = grizzlyCard;
 end
 map(1,randi(4)) = (randomComputerCard.ID);
@@ -145,6 +141,7 @@ while ~gameOver
                 clc
                 continue
             else
+                clc
                 disp(cardArray{[helpIndex]})
                 decisionMenu = input('1 - Return to Game: \n');
                 if decisionMenu == 1
@@ -265,43 +262,41 @@ while ~gameOver
             currentCardDefendingMaster = [];
         end
 
-        randomCardIndex = randi(8); % Generate a random index from 1 to 4
+        randomCardIndex = randi(10); % Generate a random index from 1 to 4
 
         if randomCardIndex == 1
             randomCard = stoatCard;
         elseif randomCardIndex == 2
-            randomCard = wolfCard;
+            randomCard = stoatCard;
         elseif randomCardIndex == 3
-            randomCard = wolfCard;
+            randomCard = stoatCard;
         elseif randomCardIndex == 4
-            randomCard = riversnapperCard;
+            randomCard = wolfCard;
         elseif randomCardIndex == 5
             randomCard = riversnapperCard;
         elseif randomCardIndex == 6
             randomCard = stoatCard;
         elseif randomCardIndex == 7
             randomCard = urayuliCard;
-        else
+        elseif randomCardIndex == 8
             randomCard = grizzlyCard;
+        elseif randomCardIndex == 9
+            randomCard = stoatCard;
+        else
+            randomCard = squirrelCard;
         end
         playerInventory.cards = [playerInventory.cards, randomCard,squirrelCard];
-        randomComputerCardIndex = randi(8); % Generate a random index from 1 to 4
+        randomComputerCardIndex = randi(100); % Generate a random index from 1 to 100
 
-        if randomComputerCardIndex == 1
+        if randomComputerCardIndex < 40 % 0-40 : 40% chance
             randomComputerCard = stoatCard;
-        elseif randomComputerCardIndex == 2
+        elseif randomComputerCardIndex >= 40 && randomComputerCardIndex < 65 %  40-65: 25% chance
             randomComputerCard = wolfCard;
-        elseif randomComputerCardIndex == 3
-            randomComputerCard = wolfCard;
-        elseif randomComputerCardIndex == 4
+        elseif randomComputerCardIndex >= 65 && randomComputerCardIndex < 85 % 65-85: 20% chance
             randomComputerCard = riversnapperCard;
-        elseif randomComputerCardIndex == 5
-            randomComputerCard = riversnapperCard;
-        elseif randomComputerCardIndex == 6
-            randomComputerCard = stoatCard;
-        elseif randomComputerCardIndex == 7
+        elseif randomComputerCardIndex >=95  % 5% chance
             randomComputerCard = urayuliCard;
-        else
+        elseif randomComputerCardIndex >= 85 && randomComputerCardIndex < 95 % 10% chance
             randomComputerCard = grizzlyCard;
         end
         map(1,randi(4)) = (randomComputerCard.ID);
@@ -311,6 +306,7 @@ while ~gameOver
             gameOver = true;
         elseif scale <= 0
             fprintf('\nYou lost\n')
+            disp(map);
             gameOver = true;
         else
             pause(1)
