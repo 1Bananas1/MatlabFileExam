@@ -25,7 +25,7 @@ j = 0; % dummy variable for seeing and identifying ID on affected cards
 
 fprintf('Welcome to Inscryption...\n')
 pause(0.5)
-fprintf('There are six cards in this game\n')
+
 
 for i = 1:numCardsToDraw
     randomCardIndex = randi(8); % Generate a random index from 1 to 4
@@ -99,8 +99,26 @@ while ~gameOver
             disp([num2str(i) ' - ' playerInventory.cards(i).name]); % Display the index and name of each card
         end
 
-        selectedCardIndex = input('Enter the index of the card you want to select or end turn by typing 0: ');
-        if selectedCardIndex == 0
+        selectedCardIndex = input('Enter the index of the card you want to select or end turn by typing 0, type 9 for help: ');
+        if selectedCardIndex == 9
+            clc
+            helpIndex = input('<strong>Card Info</strong> \n1 - Squirrel \n2 - Stoat \n3 - Wolf\n4 - Grizzly\n5 - Urayuli\n6 - River Snapper\n<strong>7 - Back</strong>\nPlease enter a number below to learn more about the card.');
+            if helpIndex == 7
+                clc
+                continue
+            else
+                disp(cardArray{[helpIndex]})
+                decisionMenu = input('1 - Return to Game: \n');
+                if decisionMenu == 1
+                    clc
+                    continue
+                else
+                    clc
+                    continue
+                end
+            end
+
+        elseif selectedCardIndex == 0
             playerTurn = false;
             continue
         elseif selectedCardIndex >= 1 && selectedCardIndex <= length(playerInventory.cards)
@@ -178,7 +196,7 @@ while ~gameOver
             end
         end
         for i = 1:4 % computer card move down if on top row
-            if map(1,i) ~= 0
+            if map(1,i) ~= 0 && map(2,i) == 0
                 map(2,i) = map(1,i);
                 map(1,i) = 0;
             end
@@ -248,7 +266,7 @@ while ~gameOver
         else
             randomComputerCard = grizzlyCard;
         end
-        map(1,randi(4)) = (randomComputerCard.ID)
+        map(1,randi(4)) = (randomComputerCard.ID);
         fprintf('Scale: %.f \n',scale)
         if scale >= 11
             fprintf('\nYou win\n')
