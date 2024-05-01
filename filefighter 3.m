@@ -2,7 +2,7 @@ clc
 squirrelCard = struct('ID', 1, 'name', 'Squirrel', 'health', 1, 'attack', 0, 'cost', 0);
 stoatCard = struct('ID', 2, 'name', 'Stout', 'health', 1, 'attack', 1, 'cost', 1);
 wolfCard = struct('ID', 3, 'name', 'Wolf', 'health', 1, 'attack', 3, 'cost', 2);
-grizzlyCard = struct('ID', 4, 'name', 'Grizzly', 'health', 1, 'attack', 4, 'cost', 3);
+grizzlyCard = struct('ID', 4, 'name', 'Grizzly', 'health', 2, 'attack', 4, 'cost', 3);
 urayuliCard = struct('ID', 5, 'name', 'Urayuli', 'health', 1, 'attack', 7, 'cost', 7);
 riversnapperCard = struct('ID', 6, 'name', 'River Stoat', 'health',6,'attack',1,'cost',2);
 cardArray={squirrelCard,stoatCard,wolfCard,grizzlyCard,urayuliCard,riversnapperCard};
@@ -39,7 +39,7 @@ pause(0.25);
 fprintf('River Stoat   \n')
 pause(5);
 clc;
-fprintf('\n \nEach card has their own attack damage and cost \n')
+fprintf('\n \nEach card has their own attack damage, health, and cost \n')
 pause(2)
 fprintf('Each player starts with <strong>3</strong> random cards and <strong>1</strong> Squirrel \n')
 pause(3);
@@ -53,6 +53,9 @@ fprintf('\n \nAt the start of each game a 4 by 3 board will be placed with one r
 pause(4)
 fprintf('\nWhen it is the computers turn, their card will move down and attack the space below it. \nIf the space in the first column is empty, it will do damage to the <strong>Scale</strong>.\n')
 pause(5)
+fprintf('However, if the card has another card in front of it, they will battle. \nIf the card placed does not have enough attack damage to kill the opposing card\nin one turn, the health is not affected. \n ')
+pause(6)
+clc
 fprintf('The scale keeps track of who is winning the game. \nIf the scale reaches <strong>11</strong> you win, however if the scale reaches <strong>0</strong> you will lose.\n \n \n')
 pause(5)
 clc
@@ -314,10 +317,6 @@ while ~gameOver
             clc
             playerTurn=true;
         end
-
-
-
-
     end
 end
 
