@@ -40,27 +40,27 @@ fprintf('River Stoat   \n')
 pause(5);
 clc;
 fprintf('\n \nEach card has their own attack damage, health, and cost \n')
-pause(2)
+pause(7)
 fprintf('Each player starts with <strong>3</strong> random cards and <strong>1</strong> Squirrel \n')
-pause(3);
+pause(8);
 clc;
 fprintf('\nThe squirrel costs <strong>0</strong> Blood, meaning it can be placed at any time, however, it cannot attack. \n')
-pause(3);
+pause(8);
 fprintf('\nAll other cards cost <strong>Blood</strong>, which can be gained by sacrificing your cards placed on the board. \n')
-pause(7);
+pause(12);
 clc
 fprintf('\n \nAt the start of each game a 4 by 3 board will be placed with one random card on the top row. \n ')
-pause(4)
+pause(9)
 fprintf('\nWhen it is the computers turn, their card will move down and attack the space below it. \nIf the space in the first column is empty, it will do damage to the <strong>Scale</strong>.\n')
-pause(5)
+pause(10)
 fprintf('However, if the card has another card in front of it, they will battle. \nIf the card placed does not have enough attack damage to kill the opposing card\nin one turn, the health is not affected. \n ')
-pause(6)
+pause(11)
 clc
 fprintf('The scale keeps track of who is winning the game. \nIf the scale reaches <strong>11</strong> you win, however if the scale reaches <strong>0</strong> you will lose.\n \n \n')
-pause(5)
+pause(10)
 clc
 fprintf('\n \n \n \n Good luck.\n')
-pause(3)
+pause(8)
 clc
 
 
